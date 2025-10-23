@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import styled from 'styled-components';
 import LoginPage from "../page/public/loginPage";
 
@@ -9,11 +9,9 @@ type publicRouteType = {
 const publicRoute = ({className}: publicRouteType) => {
     return(
         <>
-            <BrowserRouter> 
                 <Routes>
                     <Route path="/" element={<LoginPage />} />
                 </Routes>
-            </BrowserRouter>
         </>
     )
 }

@@ -1,0 +1,33 @@
+.dynamic-card {
+  border-radius: 12px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.dynamic-card h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  margin: 0;
+}
+
+.dynamic-card span {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin-top: 6px;
+}
+
+.dynamic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.1);
+}

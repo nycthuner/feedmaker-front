@@ -1,4 +1,4 @@
-export const login = async(data:{
+export const loginFunction = async(data:{
     user: string,
     password: string
 })=>{
