@@ -3,7 +3,8 @@ import CardLogin from "../../component/login/cardLogin";
 import DynamicInput from "../../component/DynamicInput";
 import DynamicButton from "../../component/DynamicButton";
 import imgLogin from "../../assets/imgLogin.png";
-import { login } from "../../utils/loginFuntion";
+import { loginFunction } from "../../utils/loginFuntion";
+import { useAuth } from "../../context/AuthContext";
 import '../../assets/css/loginPage.css'
 import { toast } from "react-toastify";
 
@@ -17,7 +18,7 @@ const LoginPage = ({ classname }: LoginType) => {
   const getData = (key: string, value: any) => {
     data[key] = value;
   };
-
+  const { login } = useAuth();
   const sendData = async () => {
     const body = {
       user: data["user"],
@@ -27,9 +28,11 @@ const LoginPage = ({ classname }: LoginType) => {
         toast.warning("Preencha usuário e senha!");
         return;
     }
-    let success:boolean = await login(body);
+    let success = await loginFunction(body);
     if(success){
         toast.success("Login realizado com sucesso!");
+        localStorage.setItem("token", "abc123");
+        login()
     }else{
         toast.error("Usuário ou senha inválidos!");
     }

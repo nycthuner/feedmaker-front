@@ -1,0 +1,47 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column; /* organiza verticalmente */
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px); /* desconta o header */
+  width: 100%;
+  background-color: #f8f9fb; /* leve mudança para menos contraste */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.welcome {
+  margin-bottom: 40px;
+}
+
+.welcome h1 {
+  font-size: 2rem;
+  color: #1a1a1a;
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* sugestão para o card se não estiver no DynamicCard */
+.card {
+  background-color: #e9f3ff;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
