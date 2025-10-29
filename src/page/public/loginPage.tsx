@@ -21,18 +21,18 @@ const LoginPage = ({ classname }: LoginType) => {
   const { login } = useAuth();
   const sendData = async () => {
     const body = {
-      user: data["user"],
-      password: data['password']
+      'Username': data["Username"],
+      'Password': data['Password']
     };
-    if (!body['user'] || !body['password']) {
+    if (!body['Username'] || !body['Password']) {
         toast.warning("Preencha usuário e senha!");
         return;
     }
     let success = await loginFunction(body);
-    if(success){
+    if(success.username){
         toast.success("Login realizado com sucesso!");
         localStorage.setItem("token", "abc123");
-        login()
+        login(success);
     }else{
         toast.error("Usuário ou senha inválidos!");
     }
@@ -56,14 +56,14 @@ const LoginPage = ({ classname }: LoginType) => {
               type="text"
               placeholder="Usuário..."
               id="user-value"
-              onChange={(e: any) => getData("user", e.target.value)}
+              onChange={(e: any) => getData("Username", e.target.value)}
             />
             <DynamicInput
               classname="login-input"
               type="password"
               placeholder="Senha..."
               id="pwa-value"
-              onChange={(e: any) => getData("password", e.target.value)}
+              onChange={(e: any) => getData("Password", e.target.value)}
             />
 
             <a href="#" className="forgot-password">

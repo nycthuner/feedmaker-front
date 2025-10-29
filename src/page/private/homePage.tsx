@@ -2,6 +2,7 @@ import styled from "styled-components";
 import '../../assets/css/homePage.css'
 import DynamicCard from "../../component/homePage/Card";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 type HomeType = {
   classname?: string;
@@ -11,14 +12,27 @@ type HomeType = {
 const HomePage = ({ classname }: HomeType) => {
 
   const navigate = useNavigate();
-
+  const { user } = useAuth();
   return (
     <main className="dashboard-container">
-        <div className="welcome"><h1>Seja bem vindo User</h1></div>
+        <div className="welcome"><h1>Seja bem vindo {user?.name}</h1></div>
         <div className="cards-wrapper">
-            <DynamicCard title="Alunos"  color="#E9F3FF" onClick={() => navigate("/alunos")} />
-            <DynamicCard title="Feedbacks"  color="#E9F3FF" onClick={() => navigate("/feedback")} />
-            <DynamicCard title="Relatórios"  color="#E9F3FF" onClick={() => navigate("/relatorios")} />
+          {user?.type === "COORDINATOR" && (
+            <>
+              <DynamicCard title="Usuarios"  color="#E9F3FF" onClick={() => navigate("/novousuario")} />
+              <DynamicCard title="Alunos"  color="#E9F3FF" onClick={() => navigate("/alunos")} />
+              </>
+            )}
+          {(user?.type === "TEACHER" || user?.type === "COORDINATOR") && (
+            <>
+              <DynamicCard title="Relatórios"  color="#E9F3FF" onClick={() => navigate("/relatorios")} />
+              </>
+            )}
+          {user?.type === "STUDENT" && (
+              <>
+                <DynamicCard title="Feedbacks"  color="#E9F3FF" onClick={() => navigate("/feedback")} />
+              </>
+            )}
         </div>
     </main>
   );

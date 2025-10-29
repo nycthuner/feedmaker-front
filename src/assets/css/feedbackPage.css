@@ -2,17 +2,47 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: calc(100vh - 80px);
   width: 100%;
   background-color: #ffffff;
 }
-
+.back {
+  background-color: #a5bdd9;
+  border-radius: 12px;
+  width: 70%;
+  height: 5%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.backButton{
+    width: 8%;
+    height: 60%;
+    background: #007bff;
+    color: white;
+    padding: 0.7rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        background: #0056b3;
+    }
+}
 .feedback-card {
   background-color: #a5bdd9;
   border-radius: 12px;
   width: 70%;
   height: 60%;
-  padding: 40px;
+  padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -30,7 +60,7 @@
 }
 
 .professor-select select {
-  width: 100%;
+  width: 90%;
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -38,11 +68,26 @@
 }
 
 .feedback-textarea textarea {
-  width: 100%;
+  width: 90%;
   resize: none;
   border-radius: 8px;
   border: 1px solid #ccc;
   padding: 10px;
   font-size: 0.95rem;
   font-family: inherit;
+}
+.createfeedback{
+      width: 25%;
+    background: #007bff;
+    color: white;
+    padding: 0.7rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background: #0056b3;
+    }
 }
