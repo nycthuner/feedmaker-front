@@ -1,0 +1,111 @@
+.user-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  width: 100%;
+  background-color: #f5f7fa;
+}
+
+.navigation {
+  background-color: #a5bdd9;
+  border-radius: 8px;
+  width: 70%;
+  height: 5%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.btn-back {
+    width: 8%;
+    height: 60%;
+    background: #007bff;
+    color: white;
+    padding: 0.7rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        background: #0056b3;
+    }
+}
+
+.btn-back:hover {
+  background: #0056b3;
+}
+
+.user-card {
+  background-color: #a5bdd9;
+  border-radius: 12px;
+  width: 70%;
+  padding: 30px 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.user-card-title {
+    color: #004080;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.label {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 1px;
+}
+
+#typeSelect{
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+
+    &:focus {
+        border-color: #007bff;
+}
+}
+.input-field{
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+
+    &:focus {
+        border-color: #007bff;
+}
+}
+.btn-submit {
+  width: 100%;
+  background: #007bff;
+  color: white;
+  padding: 0.8rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-submit:hover {
+  background: #0056b3;
+}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import HomePage from "../page/private/homePage";
 import NavBar from "../component/NavBar";
 import FeedbackPage from "../page/private/feedbackPage";
+import CreateUserPage from "../page/private/createUserPage";
 
 type privateRouteType = {
     className?: string,
@@ -15,6 +16,7 @@ const privateRoute = ({className}: privateRouteType) => {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/feedback" element={<FeedbackPage/>}/>
+                    <Route path="/novousuario" element={<CreateUserPage/>}/>
                 </Routes>
         </>
     )

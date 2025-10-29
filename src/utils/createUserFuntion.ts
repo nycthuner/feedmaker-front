@@ -1,13 +1,14 @@
 import axios from "axios";
 
-export const loginFunction = async (data: any) => {
+export const createUserFunction = async (data: any) => {
   try {
-    const response = await axios.post("http://localhost:8080/login", data, {
+    const response = await axios.post("http://localhost:8080/user", data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return response.data;
+
+    return true;
   } catch (error: any) {
     console.error("Erro no login:", error);
     if (error.response) {
