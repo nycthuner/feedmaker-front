@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import CardLogin from "../../component/login/cardLogin";
 import DynamicInput from "../../component/DynamicInput";
@@ -5,36 +6,36 @@ import DynamicButton from "../../component/DynamicButton";
 import imgLogin from "../../assets/imgLogin.png";
 import { loginFunction } from "../../utils/loginFuntion";
 import { useAuth } from "../../context/AuthContext";
-import '../../assets/css/loginPage.css'
+import "../../assets/css/loginPage.css";
 import { toast } from "react-toastify";
 
 type LoginType = {
   classname?: string;
 };
 
-const data: any = {};
+const data: Record<string, any> = {};
 
-const LoginPage = ({ classname }: LoginType) => {
+const LoginPageRoot = ({ classname }: LoginType) => {
   const getData = (key: string, value: any) => {
     data[key] = value;
   };
   const { login } = useAuth();
   const sendData = async () => {
     const body = {
-      'Username': data["Username"],
-      'Password': data['Password']
+      Username: data["Username"],
+      Password: data["Password"],
     };
-    if (!body['Username'] || !body['Password']) {
-        toast.warning("Preencha usuário e senha!");
-        return;
+    if (!body.Username || !body.Password) {
+      toast.warning("Preencha usuário e senha!");
+      return;
     }
-    let success = await loginFunction(body);
-    if(success.username){
-        toast.success("Login realizado com sucesso!");
-        localStorage.setItem("token", "abc123");
-        login(success);
-    }else{
-        toast.error("Usuário ou senha inválidos!");
+    const success: any = await loginFunction(body);
+    if (success && success.token) {
+      toast.success("Login realizado com sucesso!");
+      // chama login do contexto passando a resposta completa
+      login(success);
+    } else {
+      toast.error("Usuário ou senha inválidos!");
     }
   };
 
@@ -70,11 +71,7 @@ const LoginPage = ({ classname }: LoginType) => {
               esqueceu a senha?
             </a>
 
-            <DynamicButton
-              classname="login-button"
-              label={"ENTRAR"}
-              onClick={sendData}
-            />
+            <DynamicButton classname="login-button" label={"ENTRAR"} onClick={sendData} />
           </CardLogin>
         </div>
       </div>
@@ -82,5 +79,5 @@ const LoginPage = ({ classname }: LoginType) => {
   );
 };
 
-export default styled(LoginPage)`
+export default styled(LoginPageRoot)`
 `;

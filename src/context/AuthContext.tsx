@@ -1,14 +1,25 @@
-import { createContext, useState, useContext, type ReactNode } from "react";
+import { createContext, useState, useContext, useEffect, type ReactNode } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+
 type UserType = {
-  id: number;
+  id?: number;
   name: string;
   type: string;
-  username: string;
+  username?: string;
 };
+
+type LoginResponse = {
+  token: string;
+  username?: string;
+  name?: string | any;
+  type?: string | any;
+};
+
 type AuthContextType = {
   isAuthenticated: boolean;
   user: UserType | null;
-  login: (userData: UserType) => void;
+  login: (res: LoginResponse) => void;
   logout: () => void;
 };
 
@@ -18,18 +29,77 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
 
-  const login = (userData: UserType) => {
+  const decodePayloadFromToken = (token: string) => {
+    try {
+      const base64Payload = token.split(".")[1];
+      if (!base64Payload) return null;
+      const padded = base64Payload.padEnd(base64Payload.length + (4 - (base64Payload.length % 4)) % 4, "=");
+      const payloadJson = atob(padded);
+      return JSON.parse(payloadJson);
+    } catch (e) {
+      console.warn("Falha ao decodificar token:", e);
+      return null;
+    }
+  };
+
+  const login = (res: LoginResponse) => {
+    if (!res?.token) return;
+
+    // set cookie: secure only on https
+    Cookies.set("token", res.token, {
+      secure: window.location.protocol === "https:",
+      sameSite: "strict",
+      expires: 1, // 1 dia
+      path: "/",
+    });
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${res.token}`;
+
+    const userData: UserType = {
+      username: res.username ?? undefined,
+      name: res.name ?? undefined,
+      type: res.type ?? undefined,
+    };
+    if (!userData.name || !userData.type) {
+      const payload = decodePayloadFromToken(res.token);
+      if (payload) {
+        userData.name = userData.name ?? payload.name;
+        userData.type = userData.type ?? payload.type;
+        userData.id = payload.id ?? payload.userId ?? undefined;
+      }
+    }
+
     setIsAuthenticated(true);
     setUser(userData);
-    localStorage.setItem("token", "abc123");
-    localStorage.setItem("user", JSON.stringify(userData));
   };
+
   const logout = () => {
+    Cookies.remove("token");
+    delete axios.defaults.headers.common["Authorization"];
     setIsAuthenticated(false);
     setUser(null);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
   };
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      const payload = decodePayloadFromToken(token);
+      if (payload) {
+        const userData: UserType = {
+          id: payload.id,
+          name: payload.name,
+          type: payload.type,
+          username: payload.username ?? undefined,
+        };
+        setUser(userData);
+        setIsAuthenticated(true);
+        return;
+      }
+      Cookies.remove("token");
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>

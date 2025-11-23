@@ -1,3 +1,4 @@
+
 import { BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
 import PublicRoute from "./publicRoute";
@@ -14,7 +15,7 @@ const AppRouterContent = () => {
   );
 };
 
-const AppRouter = () => {
+const AppRouterRoot = () => {
   return (
     <AuthProvider>
       <AppRouterContent />
@@ -22,7 +23,7 @@ const AppRouter = () => {
   );
 };
 
-export default styled(AppRouter)`
+export default styled(AppRouterRoot)`
   width: 100%;
   height: 100%;
 `;
