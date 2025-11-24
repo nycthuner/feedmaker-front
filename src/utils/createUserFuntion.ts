@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createUserFunction = async (data: any) => {
   try {
-    const response = await axios.post("http://localhost:8080/user", data, {
+    const response = await axios.post("http://localhost:5567/user", data, {
       headers: {
         "Content-Type": "application/json",
       },

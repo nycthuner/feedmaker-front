@@ -8,6 +8,7 @@ import { loginFunction } from "../../utils/loginFuntion";
 import { useAuth } from "../../context/AuthContext";
 import "../../assets/css/loginPage.css";
 import { toast } from "react-toastify";
+import SHA256 from "crypto-js/sha256";
 
 type LoginType = {
   classname?: string;
@@ -23,7 +24,7 @@ const LoginPageRoot = ({ classname }: LoginType) => {
   const sendData = async () => {
     const body = {
       Username: data["Username"],
-      Password: data["Password"],
+      Password: SHA256(data['Password']).toString(),
     };
     if (!body.Username || !body.Password) {
       toast.warning("Preencha usuário e senha!");
@@ -32,7 +33,7 @@ const LoginPageRoot = ({ classname }: LoginType) => {
     const success: any = await loginFunction(body);
     if (success && success.token) {
       toast.success("Login realizado com sucesso!");
-      // chama login do contexto passando a resposta completa
+
       login(success);
     } else {
       toast.error("Usuário ou senha inválidos!");

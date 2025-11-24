@@ -6,6 +6,7 @@ import "../../assets/css/createUserPage.css";
 import ProfessorSelect from "../../component/feedback/FeedBackSelect";
 import { useNavigate } from "react-router-dom";
 import { createUserFunction } from "../../utils/createUserFuntion";
+import SHA256 from "crypto-js/sha256";
 
 type CreateUserPageType = {
   classname?: string;
@@ -22,7 +23,7 @@ const CreateUserPage = ({ classname }: CreateUserPageType) => {
     const sendData = async () => {
         const body = {
         'Username': data["Username"],
-        'Password': data['Password'],
+        'Password': SHA256(data['Password']).toString(),
         'Name': data['Name'],
         'Type': data['Type']
         };
